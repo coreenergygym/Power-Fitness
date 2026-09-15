@@ -47,7 +47,7 @@ export default function Home() {
             const name = typeof f === 'string' ? f : f.name
             const desc = typeof f === 'string' ? 'A space designed to support consistent training.' : f.description
             return <div key={typeof f==='string'?f:f.id} className="group overflow-hidden border border-white/10 bg-[#070b0d]">
-              <div className="flex aspect-[4/3] items-end bg-gradient-to-br from-white/10 via-white/[.02] to-power-400/[.06] p-5"><span className="text-xs uppercase tracking-[.18em] text-white/25">0{i+1}</span></div>
+              <div className="relative flex aspect-[4/3] items-end overflow-hidden bg-gradient-to-br from-white/10 via-white/[.02] to-power-400/[.06] p-5">{typeof f !== 'string' && f.image_url && <img src={f.image_url} alt={name} className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" />}<div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" /><span className="relative z-10 text-xs uppercase tracking-[.18em] text-white/50">0{i+1}</span></div>
               <div className="p-6"><h3 className="font-display text-xl font-semibold">{name}</h3><p className="mt-2 text-sm leading-6 text-white/40">{desc}</p></div>
             </div>
           })}
