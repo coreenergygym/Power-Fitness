@@ -8,6 +8,7 @@ import { useTable } from '@/hooks/useGymData'
 export default function Home() {
   const { data: plans } = useTable('membership_plans','*',{order:'price',ascending:true})
   const { data: facilities } = useTable('facilities','*',{order:'created_at',ascending:false})
+  const { data: gallery } = useTable('gallery_items','*',{order:'created_at',ascending:false})
   return <main>
     <section className="relative min-h-[calc(100vh-74px)] overflow-hidden bg-[#020507]">
       <div className="absolute inset-0 hero-grid opacity-50"/>
@@ -55,7 +56,64 @@ export default function Home() {
       </div>
     </section>
 
-    <section className="section-shell py-24 sm:py-32">
+    
+<section className="section-shell py-24 sm:py-32">
+  <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+    <SectionHeading
+      eyebrow="Gallery"
+      title="Inside Power Fitness."
+      text="A look at the training environment and facilities."
+    />
+    <Link
+      to="/gallery"
+      className="btn-secondary self-start md:self-auto"
+    >
+      View full gallery <ArrowUpRight size={16} />
+    </Link>
+  </div>
+
+  <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {gallery.slice(0, 6).map((item) => (
+      <Link
+        key={item.id}
+        to="/gallery"
+        className="group relative aspect-[4/3] overflow-hidden border border-white/10 bg-white/[.02]"
+      >
+        {item.type === 'video' ? (
+          <video
+            src={item.url}
+            muted
+            playsInline
+            className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+          />
+        ) : (
+          <img
+            src={item.url}
+            alt={item.caption || 'Power Fitness gallery'}
+            loading="lazy"
+            className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+          />
+        )}
+
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition group-hover:opacity-100" />
+
+        {item.caption && (
+          <div className="absolute bottom-0 left-0 right-0 p-4 text-sm text-white opacity-0 transition group-hover:opacity-100">
+            {item.caption}
+          </div>
+        )}
+      </Link>
+    ))}
+
+    {!gallery.length && (
+      <div className="border border-dashed border-white/15 p-10 text-center text-white/40 sm:col-span-2 lg:col-span-3">
+        Gallery media will appear here after the gym uploads it.
+      </div>
+    )}
+  </div>
+</section>
+
+<section className="section-shell py-24 sm:py-32">
       <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end"><SectionHeading eyebrow="Membership" title="Choose your commitment." text="Current membership plans are managed by the gym through the admin dashboard."/><Link to="/membership" className="btn-secondary self-start md:self-auto">All plans <ArrowUpRight size={16}/></Link></div>
       <div className="mt-12 grid gap-4 md:grid-cols-3">
         {(plans.length ? plans : [
