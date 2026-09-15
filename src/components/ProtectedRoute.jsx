@@ -1,0 +1,3 @@
+import { Navigate, Outlet, useLocation } from 'react-router-dom'
+import { useAuth } from '@/hooks/useAuth'
+export default function ProtectedRoute(){const {user,loading}=useAuth();const loc=useLocation();if(loading)return <div className="min-h-screen bg-[#030608] p-10 text-white/40">Checking secure session…</div>;return user?<Outlet/>:<Navigate to="/admin/login" replace state={{from:loc.pathname}}/>}

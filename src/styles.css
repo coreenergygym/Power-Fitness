@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: #020507;
+  color: #f5f7f8;
+  font-family: Inter, system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+::selection { background: rgba(0,229,255,.25); }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid #00e5ff;
+  outline-offset: 3px;
+}
+.no-scrollbar::-webkit-scrollbar { display:none; }
+.no-scrollbar { scrollbar-width:none; }
+.text-balance { text-wrap: balance; }
+
+@layer components {
+  .section-shell { @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10; }
+  .eyebrow { @apply text-xs font-semibold uppercase tracking-[.24em] text-power-300; }
+  .glass { @apply border border-white/10 bg-white/[.035] backdrop-blur-xl; }
+  .premium-card { @apply border border-white/10 bg-[#080d10] shadow-2xl shadow-black/20; }
+  .btn-primary { @apply inline-flex items-center justify-center gap-2 bg-power-400 px-5 py-3 text-sm font-bold text-black transition hover:bg-power-300 active:scale-[.98]; }
+  .btn-secondary { @apply inline-flex items-center justify-center gap-2 border border-white/15 bg-white/[.03] px-5 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/[.07] active:scale-[.98]; }
+  .field { @apply w-full border border-white/10 bg-white/[.045] px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-power-400/60 focus:bg-white/[.06]; }
+}
+
+.hero-grid {
+  background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+.hero-vignette {
+  background: radial-gradient(circle at 70% 35%, rgba(0,229,255,.12), transparent 34%),
+              radial-gradient(circle at 20% 70%, rgba(0,229,255,.06), transparent 30%),
+              linear-gradient(90deg, #020507 0%, rgba(2,5,7,.86) 45%, rgba(2,5,7,.35) 100%);
+}
+.reveal { animation: reveal .7s ease both; }
+@keyframes reveal { from { opacity:0; transform:translateY(16px) } to { opacity:1; transform:none } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { animation: none; }
+}
+.label { @apply mb-2 block text-[10px] font-semibold uppercase tracking-[.16em] text-white/35; }

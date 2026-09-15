@@ -1,0 +1,23 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
+import ProtectedRoute from '@/components/ProtectedRoute'
+import AdminShell from '@/components/admin/AdminShell'
+import Home from '@/pages/Public/Home'
+import About from '@/pages/Public/About'
+import Facilities from '@/pages/Public/Facilities'
+import Membership from '@/pages/Public/Membership'
+import Gallery from '@/pages/Public/Gallery'
+import Contact from '@/pages/Public/Contact'
+import AdminLogin from '@/pages/Admin/Login'
+import Dashboard from '@/pages/Admin/Dashboard'
+import Members from '@/pages/Admin/Members'
+import MemberEditor from '@/pages/Admin/MemberEditor'
+import MemberProfile from '@/pages/Admin/MemberProfile'
+import Plans from '@/pages/Admin/Plans'
+import AdminFacilities from '@/pages/Admin/Facilities'
+import AdminGallery from '@/pages/Admin/Gallery'
+import Settings from '@/pages/Admin/Settings'
+
+function PublicLayout(){return <><Header/><Routes><Route path="/" element={<Home/>}/><Route path="/about" element={<About/>}/><Route path="/facilities" element={<Facilities/>}/><Route path="/membership" element={<Membership/>}/><Route path="/gallery" element={<Gallery/>}/><Route path="/contact" element={<Contact/>}/></Routes><Footer/></>}
+export default function App(){return <BrowserRouter><Routes><Route path="/admin/login" element={<AdminLogin/>}/><Route element={<ProtectedRoute/>}><Route element={<AdminShell/>}><Route path="/admin/dashboard" element={<Dashboard/>}/><Route path="/admin/members" element={<Members/>}/><Route path="/admin/members/:id" element={<MemberProfile/>}/><Route path="/admin/members/new" element={<MemberEditor/>}/><Route path="/admin/members/:id/edit" element={<MemberEditor/>}/><Route path="/admin/plans" element={<Plans/>}/><Route path="/admin/facilities" element={<AdminFacilities/>}/><Route path="/admin/gallery" element={<AdminGallery/>}/><Route path="/admin/settings" element={<Settings/>}/></Route></Route><Route path="*" element={<PublicLayout/>}/></Routes></BrowserRouter>}

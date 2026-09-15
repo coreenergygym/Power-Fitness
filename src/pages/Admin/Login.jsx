@@ -1,0 +1,10 @@
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { ArrowLeft, ShieldCheck } from 'lucide-react'
+import Brand from '@/components/Brand'
+import { useAuth } from '@/hooks/useAuth'
+export default function AdminLogin(){
+ const {loginWithEmail,loading,error}=useAuth();const nav=useNavigate();const [email,setEmail]=useState('');const [password,setPassword]=useState('');const [busy,setBusy]=useState(false)
+ const submit=async e=>{e.preventDefault();setBusy(true);try{await loginWithEmail({email,password});nav('/admin/dashboard')}catch{}finally{setBusy(false)}}
+ return <main className="min-h-screen bg-[#020507]"><div className="section-shell flex min-h-screen items-center justify-center py-12"><div className="w-full max-w-md"><Link to="/" className="inline-flex items-center gap-2 text-xs uppercase tracking-[.15em] text-white/35 hover:text-white"><ArrowLeft size={15}/> Public site</Link><div className="premium-card mt-8 p-7 sm:p-9"><Brand/><div className="mt-10 flex items-center gap-3"><div className="border border-power-400/20 bg-power-400/10 p-2.5 text-power-300"><ShieldCheck size={19}/></div><div><h1 className="font-display text-2xl font-bold">Admin Login</h1><p className="mt-1 text-xs text-white/35">Secure gym management access</p></div></div><form onSubmit={submit} className="mt-8 space-y-5"><label><span className="label">Email</span><input className="field" type="email" name="email" required value={email} onChange={e=>setEmail(e.target.value)}/></label><label><span className="label">Password</span><input className="field" type="password" name="password" required value={password} onChange={e=>setPassword(e.target.value)}/></label>{error&&<div className="border border-red-400/20 bg-red-400/10 p-3 text-sm text-red-200">{error.message}</div>}<button disabled={loading||busy} className="btn-primary w-full">{busy||loading?'Signing in…':'Sign in'}</button></form></div></div></div></main>
+}
